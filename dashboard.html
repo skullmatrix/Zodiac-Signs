@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    textarea,
+    select,
+    input[type="date"] {
+      width: calc(100% - 12px);
+      padding: 8px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .journal-entry {
+      background-color: #f9f9f9;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Accounting Form</h1>
+  <div class="container">
+    <label for="transactionDate">Date:</label>
+    <input type="date" id="transactionDate">
+
+    <label for="transactionAmount">Amount:</label>
+    <input type="text" id="transactionAmount" placeholder="₱ Enter amount">
+
+    <label for="transactionDescription">Transaction Description:</label>
+    <textarea id="transactionDescription" rows="4" placeholder="Enter transaction details"></textarea>
+
+    <button onclick="submitTransaction()">Submit</button>
+
+    <div id="journalOutput">
+      <!-- Accounting journal entries will be displayed here -->
+    </div>
+  </div>
+
+  <script>
+    function submitTransaction() {
+      const date = document.getElementById('transactionDate').value;
+      const amount = document.getElementById('transactionAmount').value;
+      const description = document.getElementById('transactionDescription').value;
+
+      // Format date as "Month, Date, Year"
+      const formattedDate = new Date(date).toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+
+      const entry = `<div class="journal-entry">
+                      <p><strong>Date:</strong> ${formattedDate}</p>
+                      <p><strong>Amount:</strong> ${amount}</p>
+                      <p><strong>Description:</strong> ${description}</p>
+                    </div>`;
+
+      const journalOutput = document.getElementById('journalOutput');
+      journalOutput.insertAdjacentHTML('beforeend', entry);
+
+      // You can perform further operations here like sending this data to a server/database.
+      // For this example, it's just displayed in the journalOutput.
+    }
+  </script>
+</body>
+</html>
